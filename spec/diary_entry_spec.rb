@@ -22,8 +22,17 @@ RSpec.describe "diary_entry" do
   end
 
   it "returns a chunk of the contents that the user can read" do
-    p = DiaryEntry.new("Wally", "Happy robot flying in space to go find other robot on spaceship")
-    expect(p.reading_chunk(2,2)).to eq "Happy robot flying in"
-    expect(p.reading_chunk(2,3)).to eq "space to go find other robot"
+    diaryentry = DiaryEntry.new("Wally", "Happy robot flying in space to go find other robot on spaceship")
+    expect(diaryentry.reading_chunk(2,2)).to eq "Happy robot flying in"
+    expect(diaryentry.reading_chunk(2,3)).to eq "space to go find other robot"
+    expect(diaryentry.reading_chunk(2,1)).to eq "on spaceship"
+    expect(diaryentry.reading_chunk(2,3)).to eq "Happy robot flying in space to"
+  end
+
+  it "returns string of text the user can read in a given number of minutes" do
+    diaryentry = DiaryEntry.new("Monday", "This is a test sentence with ten different words in")
+    expect(diaryentry.reading_chunk(2, 2)).to eq "This is a test" 
+    expect(diaryentry.reading_chunk(2, 3)).to eq "sentence with ten different words in"
+    expect(diaryentry.reading_chunk(2, 4)).to eq "This is a test sentence with ten different"
   end
 end
